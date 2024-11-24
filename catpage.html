@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cat Slap</title>
+        <link rel="stylesheet" href="styles.css">
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                flex-direction: column;
+            }
+
+            #cat {
+                display: block;
+                width: 100px;
+                height: auto;
+                position: absolute;
+                top: calc(50% - 70px); /* Adjust this value to position the cat slightly above the button */
+                left: calc(50% + 10px); /* Move the cat 30px to the left */
+            }
+
+            button {
+                margin: 20px;
+                padding: 10px 20px;
+                font-size: 16px;
+                position: relative;
+                z-index: 1; /* Ensure the button is above other elements */
+            }
+
+            #catPaw {
+                position: absolute;
+                display: none;
+                width: 50px;
+                height: auto;
+                transition: transform 0.1s ease-in-out;
+            }
+
+            #catPaw.slapping {
+                transform: rotate(-45deg) translateY(-20px);
+            }
+        </style>
+    </head>
+    <body>
+        <button id="slapButton">Click me!</button>
+        <img id="cat" src="images/pootah.png" alt="cat">
+        <img id="catPaw" src="images/catpaw.png" alt="cat paw">
+        <script src="catscript.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const slapButton = document.getElementById('slapButton');
+                const catPaw = document.getElementById('catPaw');
+
+                slapButton.addEventListener('click', () => {
+                    // Show the cat paw
+                    catPaw.style.display = 'block';
+                    catPaw.style.top = `${slapButton.offsetTop - 30}px`; // Adjust this value to position the cat paw correctly
+                    catPaw.style.left = `${slapButton.offsetLeft + slapButton.offsetWidth -20}px`; // Adjust this value to position the cat paw correctly
+
+                    // Add the slapping animation
+                    catPaw.classList.add('slapping');
+
+                    // Remove the slapping animation after a short delay
+                    setTimeout(() => {
+                        catPaw.classList.remove('slapping');
+                        catPaw.style.display = 'none';
+                    }, 500);
+                });
+            });
+        </script>
+    </body>
+</html>
